@@ -74,6 +74,30 @@ async function run() {
       });
       res.send(result);
     });
+
+    // Update tasks
+    app.patch("/api/tasks/:id", async (req, res) => {
+      const { id } = req.params;
+      const task = req.body;
+      // console.log(id, task);
+
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedTask = {
+        $set: {
+          // category: task.category,
+          ...task,
+        },
+      };
+
+      const result = await tasksCollection.updateOne(
+        query,
+        updatedTask,
+        options
+      );
+
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
