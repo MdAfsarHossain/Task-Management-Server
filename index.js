@@ -30,3 +30,11 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
+app.get("/", (req, res) => {
+  res.send("Welcome To The Task Management System Sercer site..");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
