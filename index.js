@@ -41,6 +41,13 @@ async function run() {
     const database = client.db("taskManagement");
     const tasksCollection = database.collection("tasks");
     const usersCollection = database.collection("users");
+
+    // Get all tasks
+    app.get("/api/tasks", async (req, res) => {
+      const cursor = tasksCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
