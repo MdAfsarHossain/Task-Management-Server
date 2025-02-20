@@ -48,6 +48,14 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    // Post a new task
+    app.post("/api/tasks", async (req, res) => {
+      const task = req.body;
+      // console.log(task);
+      const result = await tasksCollection.insertOne(task);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
