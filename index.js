@@ -44,8 +44,10 @@ async function run() {
 
     // Get all tasks
     app.get("/api/tasks", async (req, res) => {
-      const cursor = tasksCollection.find();
-      const result = await cursor.toArray();
+      const email = req.query?.email;
+      const query = { authorEmail: email };
+      const result = await tasksCollection.find(query).toArray();
+      // const result = await cursor.toArray();
       res.send(result);
     });
 
